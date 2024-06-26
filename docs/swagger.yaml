@@ -1,0 +1,78 @@
+basePath: /
+definitions:
+  models.AddressBook:
+    properties:
+      code:
+        type: integer
+      firstname:
+        type: string
+      lastname:
+        type: string
+      phone:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample server for GoApi.
+  title: GoApi Example API
+  version: "1.0"
+paths:
+  /GetAddressBookByUserName:
+    get:
+      description: get by username address books
+      operationId: get-address-book-by-username
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.AddressBook'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get by username address books
+  /getAddress:
+    get:
+      description: get all address books
+      operationId: get-address-book-all
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.AddressBook'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get all address books
+  /getToken:
+    get:
+      description: generate a JWT token for a given username
+      operationId: generate-token
+      parameters:
+      - description: Username
+        in: query
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Generate JWT token
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
